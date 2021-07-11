@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bfd4849da0654ddfb9a4383eb4c4f1c1" Name="Diagram1">
+        <EntityTypeShape EntityType="musicCompositionModel.Appearances" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="musicCompositionModel.Clients" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="musicCompositionModel.Compositions" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="musicCompositionModel.Instruments" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="musicCompositionModel.Message" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="musicCompositionModel.Places" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="musicCompositionModel.Players" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="musicCompositionModel.PlayersInAppearances" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
+        <AssociationConnector Association="musicCompositionModel.FK__Appearanc__codeC__00DF2177" ManuallyRouted="false" />
+        <AssociationConnector Association="musicCompositionModel.FK__Appearanc__codeC__01D345B0" ManuallyRouted="false" />
+        <AssociationConnector Association="musicCompositionModel.FK__Appearanc__codeC__7FEAFD3E" ManuallyRouted="false" />
+        <AssociationConnector Association="musicCompositionModel.FK__PlayersIn__codeA__04AFB25B" ManuallyRouted="false" />
+        <AssociationConnector Association="musicCompositionModel.FK__PlayersIn__codeP__05A3D694" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="musicCompositionModel.InstrumInCompositions" Width="1.5" PointX="5" PointY="8.875" />
+        <EntityTypeShape EntityType="musicCompositionModel.InstumentPerPlayer" Width="1.5" PointX="8" PointY="3.75" />
+        <AssociationConnector Association="musicCompositionModel.FK__InstrumIn__codeC__2057CCD0" />
+        <AssociationConnector Association="musicCompositionModel.FK__InstrumIn__codeI__1F63A897" />
+        <AssociationConnector Association="musicCompositionModel.FK__Instument__codeI__1C873BEC" />
+        <AssociationConnector Association="musicCompositionModel.FK__Instument__codeP__1B9317B3" />
+        <AssociationConnector Association="musicCompositionModel.FK__PlayersIn__codeI__69C6B1F5" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

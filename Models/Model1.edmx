@@ -1,0 +1,739 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="musicCompositionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Appearances">
+          <Key>
+            <PropertyRef Name="codeA" />
+          </Key>
+          <Property Name="codeA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dateA" Type="date" />
+          <Property Name="addresPlace" Type="varchar" MaxLength="50" />
+          <Property Name="codeCli" Type="int" Nullable="false" />
+          <Property Name="pelPlays" Type="varchar" MaxLength="10" />
+          <Property Name="startHour" Type="time" Precision="7" />
+          <Property Name="endHour" Type="time" Precision="7" />
+          <Property Name="codeComp" Type="int" Nullable="false" />
+          <Property Name="codeConductor" Type="int" Nullable="false" />
+          <Property Name="cost" Type="int" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="codeCli" />
+          </Key>
+          <Property Name="codeCli" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idC" Type="int" />
+          <Property Name="fullNameC" Type="nvarchar" MaxLength="50" />
+          <Property Name="pel1" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="pel2" Type="varchar" MaxLength="10" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="points" Type="int" />
+          <Property Name="status" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Compositions">
+          <Key>
+            <PropertyRef Name="codeComp" />
+          </Key>
+          <Property Name="codeComp" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="50" />
+          <Property Name="numOfPlayers" Type="int" />
+        </EntityType>
+        <EntityType Name="Instruments">
+          <Key>
+            <PropertyRef Name="codeInst" />
+          </Key>
+          <Property Name="codeInst" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nameInst" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="style" Type="int" Nullable="false" />
+          <Property Name="size" Type="int" Nullable="false" />
+          <Property Name="voice" Type="int" Nullable="false" />
+          <Property Name="type" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InstrumInCompositions">
+          <Key>
+            <PropertyRef Name="codeIInComp" />
+          </Key>
+          <Property Name="codeIInComp" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codeInst" Type="int" Nullable="false" />
+          <Property Name="codeComp" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InstumentPerPlayer">
+          <Key>
+            <PropertyRef Name="codeIPerP" />
+          </Key>
+          <Property Name="codeIPerP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codeP" Type="int" Nullable="false" />
+          <Property Name="codeInst" Type="int" Nullable="false" />
+          <Property Name="priceOfAppearance" Type="int" />
+          <Property Name="rating" Type="int" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="codeM" />
+          </Key>
+          <Property Name="codeM" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="taxt" Type="varchar" MaxLength="150" />
+          <Property Name="isImport" Type="int" />
+          <Property Name="sourceM" Type="varchar" MaxLength="100" />
+          <Property Name="destinationM" Type="varchar" MaxLength="100" />
+          <Property Name="DateSending" Type="date" />
+          <Property Name="status" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Places">
+          <Key>
+            <PropertyRef Name="codeP" />
+          </Key>
+          <Property Name="codeP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="50" />
+          <Property Name="addres" Type="varchar" MaxLength="50" />
+          <Property Name="locationX" Type="float" />
+          <Property Name="locationY" Type="float" />
+        </EntityType>
+        <EntityType Name="Players">
+          <Key>
+            <PropertyRef Name="codeP" />
+          </Key>
+          <Property Name="codeP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idP" Type="int" />
+          <Property Name="fullNameP" Type="nvarchar" MaxLength="50" />
+          <Property Name="pel" Type="varchar" MaxLength="10" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="daysWork" Type="varchar" MaxLength="100" />
+          <Property Name="status" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="PlayersInAppearances">
+          <Key>
+            <PropertyRef Name="codePInA" />
+          </Key>
+          <Property Name="codePInA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codeA" Type="int" Nullable="false" />
+          <Property Name="codeP" Type="int" Nullable="false" />
+          <Property Name="codeInst" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Appearanc__codeC__43A1090D">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="Appearances" Type="Self.Appearances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="codeCli" />
+            </Principal>
+            <Dependent Role="Appearances">
+              <PropertyRef Name="codeCli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appearanc__codeC__44952D46">
+          <End Role="Compositions" Type="Self.Compositions" Multiplicity="1" />
+          <End Role="Appearances" Type="Self.Appearances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compositions">
+              <PropertyRef Name="codeComp" />
+            </Principal>
+            <Dependent Role="Appearances">
+              <PropertyRef Name="codeComp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appearanc__codeC__4589517F">
+          <End Role="Players" Type="Self.Players" Multiplicity="1" />
+          <End Role="Appearances" Type="Self.Appearances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="codeP" />
+            </Principal>
+            <Dependent Role="Appearances">
+              <PropertyRef Name="codeConductor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InstrumIn__codeC__2057CCD0">
+          <End Role="Compositions" Type="Self.Compositions" Multiplicity="1" />
+          <End Role="InstrumInCompositions" Type="Self.InstrumInCompositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compositions">
+              <PropertyRef Name="codeComp" />
+            </Principal>
+            <Dependent Role="InstrumInCompositions">
+              <PropertyRef Name="codeComp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InstrumIn__codeI__1F63A897">
+          <End Role="Instruments" Type="Self.Instruments" Multiplicity="1" />
+          <End Role="InstrumInCompositions" Type="Self.InstrumInCompositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instruments">
+              <PropertyRef Name="codeInst" />
+            </Principal>
+            <Dependent Role="InstrumInCompositions">
+              <PropertyRef Name="codeInst" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Instument__codeI__318258D2">
+          <End Role="Instruments" Type="Self.Instruments" Multiplicity="1" />
+          <End Role="InstumentPerPlayer" Type="Self.InstumentPerPlayer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instruments">
+              <PropertyRef Name="codeInst" />
+            </Principal>
+            <Dependent Role="InstumentPerPlayer">
+              <PropertyRef Name="codeInst" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Instument__codeP__308E3499">
+          <End Role="Players" Type="Self.Players" Multiplicity="1" />
+          <End Role="InstumentPerPlayer" Type="Self.InstumentPerPlayer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="codeP" />
+            </Principal>
+            <Dependent Role="InstumentPerPlayer">
+              <PropertyRef Name="codeP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PlayersIn__codeA__67DE6983">
+          <End Role="Appearances" Type="Self.Appearances" Multiplicity="1" />
+          <End Role="PlayersInAppearances" Type="Self.PlayersInAppearances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appearances">
+              <PropertyRef Name="codeA" />
+            </Principal>
+            <Dependent Role="PlayersInAppearances">
+              <PropertyRef Name="codeA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PlayersIn__codeI__69C6B1F5">
+          <End Role="Instruments" Type="Self.Instruments" Multiplicity="1" />
+          <End Role="PlayersInAppearances" Type="Self.PlayersInAppearances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instruments">
+              <PropertyRef Name="codeInst" />
+            </Principal>
+            <Dependent Role="PlayersInAppearances">
+              <PropertyRef Name="codeInst" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PlayersIn__codeP__68D28DBC">
+          <End Role="Players" Type="Self.Players" Multiplicity="1" />
+          <End Role="PlayersInAppearances" Type="Self.PlayersInAppearances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="codeP" />
+            </Principal>
+            <Dependent Role="PlayersInAppearances">
+              <PropertyRef Name="codeP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="musicCompositionModelStoreContainer">
+          <EntitySet Name="Appearances" EntityType="Self.Appearances" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Compositions" EntityType="Self.Compositions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Instruments" EntityType="Self.Instruments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InstrumInCompositions" EntityType="Self.InstrumInCompositions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InstumentPerPlayer" EntityType="Self.InstumentPerPlayer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Places" EntityType="Self.Places" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Players" EntityType="Self.Players" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlayersInAppearances" EntityType="Self.PlayersInAppearances" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Appearanc__codeC__43A1090D" Association="Self.FK__Appearanc__codeC__43A1090D">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Appearances" EntitySet="Appearances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appearanc__codeC__44952D46" Association="Self.FK__Appearanc__codeC__44952D46">
+            <End Role="Compositions" EntitySet="Compositions" />
+            <End Role="Appearances" EntitySet="Appearances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appearanc__codeC__4589517F" Association="Self.FK__Appearanc__codeC__4589517F">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="Appearances" EntitySet="Appearances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InstrumIn__codeC__2057CCD0" Association="Self.FK__InstrumIn__codeC__2057CCD0">
+            <End Role="Compositions" EntitySet="Compositions" />
+            <End Role="InstrumInCompositions" EntitySet="InstrumInCompositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InstrumIn__codeI__1F63A897" Association="Self.FK__InstrumIn__codeI__1F63A897">
+            <End Role="Instruments" EntitySet="Instruments" />
+            <End Role="InstrumInCompositions" EntitySet="InstrumInCompositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Instument__codeI__318258D2" Association="Self.FK__Instument__codeI__318258D2">
+            <End Role="Instruments" EntitySet="Instruments" />
+            <End Role="InstumentPerPlayer" EntitySet="InstumentPerPlayer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Instument__codeP__308E3499" Association="Self.FK__Instument__codeP__308E3499">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="InstumentPerPlayer" EntitySet="InstumentPerPlayer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PlayersIn__codeA__67DE6983" Association="Self.FK__PlayersIn__codeA__67DE6983">
+            <End Role="Appearances" EntitySet="Appearances" />
+            <End Role="PlayersInAppearances" EntitySet="PlayersInAppearances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PlayersIn__codeI__69C6B1F5" Association="Self.FK__PlayersIn__codeI__69C6B1F5">
+            <End Role="Instruments" EntitySet="Instruments" />
+            <End Role="PlayersInAppearances" EntitySet="PlayersInAppearances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PlayersIn__codeP__68D28DBC" Association="Self.FK__PlayersIn__codeP__68D28DBC">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="PlayersInAppearances" EntitySet="PlayersInAppearances" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="musicCompositionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Appearances">
+          <Key>
+            <PropertyRef Name="codeA" />
+          </Key>
+          <Property Name="codeA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dateA" Type="DateTime" Precision="0" />
+          <Property Name="addresPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="codeCli" Type="Int32" Nullable="false" />
+          <Property Name="pelPlays" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="startHour" Type="Time" Precision="7" />
+          <Property Name="endHour" Type="Time" Precision="7" />
+          <Property Name="codeComp" Type="Int32" Nullable="false" />
+          <Property Name="codeConductor" Type="Int32" Nullable="false" />
+          <Property Name="cost" Type="Int32" />
+          <NavigationProperty Name="Compositions" Relationship="Self.FK__Appearanc__codeC__00DF2177" FromRole="Appearances" ToRole="Compositions" />
+          <NavigationProperty Name="Players" Relationship="Self.FK__Appearanc__codeC__01D345B0" FromRole="Appearances" ToRole="Players" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK__Appearanc__codeC__7FEAFD3E" FromRole="Appearances" ToRole="Clients" />
+          <NavigationProperty Name="PlayersInAppearances" Relationship="Self.FK__PlayersIn__codeA__04AFB25B" FromRole="Appearances" ToRole="PlayersInAppearances" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="codeCli" />
+          </Key>
+          <Property Name="codeCli" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idC" Type="Int32" />
+          <Property Name="fullNameC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pel1" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pel2" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="points" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Appearances" Relationship="Self.FK__Appearanc__codeC__7FEAFD3E" FromRole="Clients" ToRole="Appearances" />
+        </EntityType>
+        <EntityType Name="Compositions">
+          <Key>
+            <PropertyRef Name="codeComp" />
+          </Key>
+          <Property Name="codeComp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="numOfPlayers" Type="Int32" />
+          <NavigationProperty Name="Appearances" Relationship="Self.FK__Appearanc__codeC__00DF2177" FromRole="Compositions" ToRole="Appearances" />
+          <NavigationProperty Name="InstrumInCompositions" Relationship="musicCompositionModel.FK__InstrumIn__codeC__2057CCD0" FromRole="Compositions" ToRole="InstrumInCompositions" />
+        </EntityType>
+        <EntityType Name="Instruments">
+          <Key>
+            <PropertyRef Name="codeInst" />
+          </Key>
+          <Property Name="codeInst" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameInst" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="style" Type="Int32" Nullable="false" />
+          <Property Name="size" Type="Int32" Nullable="false" />
+          <Property Name="voice" Type="Int32" Nullable="false" />
+          <Property Name="type" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="InstrumInCompositions" Relationship="musicCompositionModel.FK__InstrumIn__codeI__1F63A897" FromRole="Instruments" ToRole="InstrumInCompositions" />
+          <NavigationProperty Name="InstumentPerPlayer" Relationship="musicCompositionModel.FK__Instument__codeI__1C873BEC" FromRole="Instruments" ToRole="InstumentPerPlayer" />
+          <NavigationProperty Name="PlayersInAppearances" Relationship="musicCompositionModel.FK__PlayersIn__codeI__69C6B1F5" FromRole="Instruments" ToRole="PlayersInAppearances" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="codeM" />
+          </Key>
+          <Property Name="codeM" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="taxt" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="isImport" Type="Int32" />
+          <Property Name="sourceM" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="destinationM" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DateSending" Type="DateTime" Precision="0" />
+          <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Places">
+          <Key>
+            <PropertyRef Name="codeP" />
+          </Key>
+          <Property Name="codeP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="addres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="locationX" Type="Double" />
+          <Property Name="locationY" Type="Double" />
+        </EntityType>
+        <EntityType Name="Players">
+          <Key>
+            <PropertyRef Name="codeP" />
+          </Key>
+          <Property Name="codeP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idP" Type="Int32" />
+          <Property Name="fullNameP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pel" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="daysWork" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Appearances" Relationship="Self.FK__Appearanc__codeC__01D345B0" FromRole="Players" ToRole="Appearances" />
+          <NavigationProperty Name="PlayersInAppearances" Relationship="Self.FK__PlayersIn__codeP__05A3D694" FromRole="Players" ToRole="PlayersInAppearances" />
+          <NavigationProperty Name="InstumentPerPlayer" Relationship="musicCompositionModel.FK__Instument__codeP__1B9317B3" FromRole="Players" ToRole="InstumentPerPlayer" />
+        </EntityType>
+        <EntityType Name="PlayersInAppearances">
+          <Key>
+            <PropertyRef Name="codePInA" />
+          </Key>
+          <Property Name="codePInA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codeA" Type="Int32" Nullable="false" />
+          <Property Name="codeP" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Appearances" Relationship="Self.FK__PlayersIn__codeA__04AFB25B" FromRole="PlayersInAppearances" ToRole="Appearances" />
+          <NavigationProperty Name="Players" Relationship="Self.FK__PlayersIn__codeP__05A3D694" FromRole="PlayersInAppearances" ToRole="Players" />
+          <Property Name="codeInst" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Instruments" Relationship="musicCompositionModel.FK__PlayersIn__codeI__69C6B1F5" FromRole="PlayersInAppearances" ToRole="Instruments" />
+        </EntityType>
+        <Association Name="FK__Appearanc__codeC__00DF2177">
+          <End Role="Compositions" Type="Self.Compositions" Multiplicity="1" />
+          <End Role="Appearances" Type="Self.Appearances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compositions">
+              <PropertyRef Name="codeComp" />
+            </Principal>
+            <Dependent Role="Appearances">
+              <PropertyRef Name="codeComp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appearanc__codeC__01D345B0">
+          <End Role="Players" Type="Self.Players" Multiplicity="1" />
+          <End Role="Appearances" Type="Self.Appearances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="codeP" />
+            </Principal>
+            <Dependent Role="Appearances">
+              <PropertyRef Name="codeConductor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appearanc__codeC__7FEAFD3E">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="Appearances" Type="Self.Appearances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="codeCli" />
+            </Principal>
+            <Dependent Role="Appearances">
+              <PropertyRef Name="codeCli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PlayersIn__codeA__04AFB25B">
+          <End Role="Appearances" Type="Self.Appearances" Multiplicity="1" />
+          <End Role="PlayersInAppearances" Type="Self.PlayersInAppearances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appearances">
+              <PropertyRef Name="codeA" />
+            </Principal>
+            <Dependent Role="PlayersInAppearances">
+              <PropertyRef Name="codeA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PlayersIn__codeP__05A3D694">
+          <End Role="Players" Type="Self.Players" Multiplicity="1" />
+          <End Role="PlayersInAppearances" Type="Self.PlayersInAppearances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="codeP" />
+            </Principal>
+            <Dependent Role="PlayersInAppearances">
+              <PropertyRef Name="codeP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="musicCompositionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Appearances" EntityType="Self.Appearances" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" />
+          <EntitySet Name="Compositions" EntityType="Self.Compositions" />
+          <EntitySet Name="Instruments" EntityType="Self.Instruments" />
+          <EntitySet Name="Message" EntityType="Self.Message" />
+          <EntitySet Name="Places" EntityType="Self.Places" />
+          <EntitySet Name="Players" EntityType="Self.Players" />
+          <EntitySet Name="PlayersInAppearances" EntityType="Self.PlayersInAppearances" />
+          <AssociationSet Name="FK__Appearanc__codeC__00DF2177" Association="Self.FK__Appearanc__codeC__00DF2177">
+            <End Role="Compositions" EntitySet="Compositions" />
+            <End Role="Appearances" EntitySet="Appearances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appearanc__codeC__01D345B0" Association="Self.FK__Appearanc__codeC__01D345B0">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="Appearances" EntitySet="Appearances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appearanc__codeC__7FEAFD3E" Association="Self.FK__Appearanc__codeC__7FEAFD3E">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Appearances" EntitySet="Appearances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PlayersIn__codeA__04AFB25B" Association="Self.FK__PlayersIn__codeA__04AFB25B">
+            <End Role="Appearances" EntitySet="Appearances" />
+            <End Role="PlayersInAppearances" EntitySet="PlayersInAppearances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PlayersIn__codeP__05A3D694" Association="Self.FK__PlayersIn__codeP__05A3D694">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="PlayersInAppearances" EntitySet="PlayersInAppearances" />
+          </AssociationSet>
+          <EntitySet Name="InstrumInCompositions" EntityType="musicCompositionModel.InstrumInCompositions" />
+          <EntitySet Name="InstumentPerPlayer" EntityType="musicCompositionModel.InstumentPerPlayer" />
+          <AssociationSet Name="FK__InstrumIn__codeC__2057CCD0" Association="musicCompositionModel.FK__InstrumIn__codeC__2057CCD0">
+            <End Role="Compositions" EntitySet="Compositions" />
+            <End Role="InstrumInCompositions" EntitySet="InstrumInCompositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InstrumIn__codeI__1F63A897" Association="musicCompositionModel.FK__InstrumIn__codeI__1F63A897">
+            <End Role="Instruments" EntitySet="Instruments" />
+            <End Role="InstrumInCompositions" EntitySet="InstrumInCompositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Instument__codeI__1C873BEC" Association="musicCompositionModel.FK__Instument__codeI__1C873BEC">
+            <End Role="Instruments" EntitySet="Instruments" />
+            <End Role="InstumentPerPlayer" EntitySet="InstumentPerPlayer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Instument__codeP__1B9317B3" Association="musicCompositionModel.FK__Instument__codeP__1B9317B3">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="InstumentPerPlayer" EntitySet="InstumentPerPlayer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PlayersIn__codeI__69C6B1F5" Association="musicCompositionModel.FK__PlayersIn__codeI__69C6B1F5">
+            <End Role="Instruments" EntitySet="Instruments" />
+            <End Role="PlayersInAppearances" EntitySet="PlayersInAppearances" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="InstrumInCompositions">
+          <Key>
+            <PropertyRef Name="codeIInComp" />
+          </Key>
+          <Property Name="codeIInComp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codeInst" Type="Int32" Nullable="false" />
+          <Property Name="codeComp" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Compositions" Relationship="musicCompositionModel.FK__InstrumIn__codeC__2057CCD0" FromRole="InstrumInCompositions" ToRole="Compositions" />
+          <NavigationProperty Name="Instruments" Relationship="musicCompositionModel.FK__InstrumIn__codeI__1F63A897" FromRole="InstrumInCompositions" ToRole="Instruments" />
+        </EntityType>
+        <EntityType Name="InstumentPerPlayer">
+          <Key>
+            <PropertyRef Name="codeIPerP" />
+          </Key>
+          <Property Name="codeIPerP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codeP" Type="Int32" Nullable="false" />
+          <Property Name="codeInst" Type="Int32" Nullable="false" />
+          <Property Name="priceOfAppearance" Type="Int32" />
+          <Property Name="rating" Type="Int32" />
+          <NavigationProperty Name="Instruments" Relationship="musicCompositionModel.FK__Instument__codeI__1C873BEC" FromRole="InstumentPerPlayer" ToRole="Instruments" />
+          <NavigationProperty Name="Players" Relationship="musicCompositionModel.FK__Instument__codeP__1B9317B3" FromRole="InstumentPerPlayer" ToRole="Players" />
+        </EntityType>
+        <Association Name="FK__InstrumIn__codeC__2057CCD0">
+          <End Type="musicCompositionModel.Compositions" Role="Compositions" Multiplicity="1" />
+          <End Type="musicCompositionModel.InstrumInCompositions" Role="InstrumInCompositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compositions">
+              <PropertyRef Name="codeComp" />
+            </Principal>
+            <Dependent Role="InstrumInCompositions">
+              <PropertyRef Name="codeComp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InstrumIn__codeI__1F63A897">
+          <End Type="musicCompositionModel.Instruments" Role="Instruments" Multiplicity="1" />
+          <End Type="musicCompositionModel.InstrumInCompositions" Role="InstrumInCompositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instruments">
+              <PropertyRef Name="codeInst" />
+            </Principal>
+            <Dependent Role="InstrumInCompositions">
+              <PropertyRef Name="codeInst" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Instument__codeI__1C873BEC">
+          <End Type="musicCompositionModel.Instruments" Role="Instruments" Multiplicity="1" />
+          <End Type="musicCompositionModel.InstumentPerPlayer" Role="InstumentPerPlayer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instruments">
+              <PropertyRef Name="codeInst" />
+            </Principal>
+            <Dependent Role="InstumentPerPlayer">
+              <PropertyRef Name="codeInst" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Instument__codeP__1B9317B3">
+          <End Type="musicCompositionModel.Players" Role="Players" Multiplicity="1" />
+          <End Type="musicCompositionModel.InstumentPerPlayer" Role="InstumentPerPlayer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="codeP" />
+            </Principal>
+            <Dependent Role="InstumentPerPlayer">
+              <PropertyRef Name="codeP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PlayersIn__codeI__69C6B1F5">
+          <End Type="musicCompositionModel.Instruments" Role="Instruments" Multiplicity="1" />
+          <End Type="musicCompositionModel.PlayersInAppearances" Role="PlayersInAppearances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instruments">
+              <PropertyRef Name="codeInst" />
+            </Principal>
+            <Dependent Role="PlayersInAppearances">
+              <PropertyRef Name="codeInst" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="musicCompositionModelStoreContainer" CdmEntityContainer="musicCompositionEntities">
+          <EntitySetMapping Name="Appearances">
+            <EntityTypeMapping TypeName="musicCompositionModel.Appearances">
+              <MappingFragment StoreEntitySet="Appearances">
+                <ScalarProperty Name="codeA" ColumnName="codeA" />
+                <ScalarProperty Name="dateA" ColumnName="dateA" />
+                <ScalarProperty Name="addresPlace" ColumnName="addresPlace" />
+                <ScalarProperty Name="codeCli" ColumnName="codeCli" />
+                <ScalarProperty Name="pelPlays" ColumnName="pelPlays" />
+                <ScalarProperty Name="startHour" ColumnName="startHour" />
+                <ScalarProperty Name="endHour" ColumnName="endHour" />
+                <ScalarProperty Name="codeComp" ColumnName="codeComp" />
+                <ScalarProperty Name="codeConductor" ColumnName="codeConductor" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="musicCompositionModel.Clients">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="codeCli" ColumnName="codeCli" />
+                <ScalarProperty Name="idC" ColumnName="idC" />
+                <ScalarProperty Name="fullNameC" ColumnName="fullNameC" />
+                <ScalarProperty Name="pel1" ColumnName="pel1" />
+                <ScalarProperty Name="pel2" ColumnName="pel2" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="points" ColumnName="points" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Compositions">
+            <EntityTypeMapping TypeName="musicCompositionModel.Compositions">
+              <MappingFragment StoreEntitySet="Compositions">
+                <ScalarProperty Name="codeComp" ColumnName="codeComp" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="numOfPlayers" ColumnName="numOfPlayers" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Instruments">
+            <EntityTypeMapping TypeName="musicCompositionModel.Instruments">
+              <MappingFragment StoreEntitySet="Instruments">
+                <ScalarProperty Name="codeInst" ColumnName="codeInst" />
+                <ScalarProperty Name="nameInst" ColumnName="nameInst" />
+                <ScalarProperty Name="style" ColumnName="style" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="voice" ColumnName="voice" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Message">
+            <EntityTypeMapping TypeName="musicCompositionModel.Message">
+              <MappingFragment StoreEntitySet="Message">
+                <ScalarProperty Name="codeM" ColumnName="codeM" />
+                <ScalarProperty Name="taxt" ColumnName="taxt" />
+                <ScalarProperty Name="isImport" ColumnName="isImport" />
+                <ScalarProperty Name="sourceM" ColumnName="sourceM" />
+                <ScalarProperty Name="destinationM" ColumnName="destinationM" />
+                <ScalarProperty Name="DateSending" ColumnName="DateSending" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Places">
+            <EntityTypeMapping TypeName="musicCompositionModel.Places">
+              <MappingFragment StoreEntitySet="Places">
+                <ScalarProperty Name="codeP" ColumnName="codeP" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="addres" ColumnName="addres" />
+                <ScalarProperty Name="locationX" ColumnName="locationX" />
+                <ScalarProperty Name="locationY" ColumnName="locationY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Players">
+            <EntityTypeMapping TypeName="musicCompositionModel.Players">
+              <MappingFragment StoreEntitySet="Players">
+                <ScalarProperty Name="codeP" ColumnName="codeP" />
+                <ScalarProperty Name="idP" ColumnName="idP" />
+                <ScalarProperty Name="fullNameP" ColumnName="fullNameP" />
+                <ScalarProperty Name="pel" ColumnName="pel" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="daysWork" ColumnName="daysWork" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlayersInAppearances">
+            <EntityTypeMapping TypeName="musicCompositionModel.PlayersInAppearances">
+              <MappingFragment StoreEntitySet="PlayersInAppearances">
+                <ScalarProperty Name="codeInst" ColumnName="codeInst" />
+                <ScalarProperty Name="codePInA" ColumnName="codePInA" />
+                <ScalarProperty Name="codeA" ColumnName="codeA" />
+                <ScalarProperty Name="codeP" ColumnName="codeP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InstrumInCompositions">
+            <EntityTypeMapping TypeName="musicCompositionModel.InstrumInCompositions">
+              <MappingFragment StoreEntitySet="InstrumInCompositions">
+                <ScalarProperty Name="codeComp" ColumnName="codeComp" />
+                <ScalarProperty Name="codeInst" ColumnName="codeInst" />
+                <ScalarProperty Name="codeIInComp" ColumnName="codeIInComp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InstumentPerPlayer">
+            <EntityTypeMapping TypeName="musicCompositionModel.InstumentPerPlayer">
+              <MappingFragment StoreEntitySet="InstumentPerPlayer">
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="priceOfAppearance" ColumnName="priceOfAppearance" />
+                <ScalarProperty Name="codeInst" ColumnName="codeInst" />
+                <ScalarProperty Name="codeP" ColumnName="codeP" />
+                <ScalarProperty Name="codeIPerP" ColumnName="codeIPerP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
